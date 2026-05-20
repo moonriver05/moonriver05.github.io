@@ -1,0 +1,418 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Http协议 | moon_nine's blog</title><meta name="author" content="moon_nine"><meta name="copyright" content="moon_nine"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="http协议 http简介 http是Hyper Text Transfer Protocol（超文本传输协议）的缩写。主要适用于从www服务器到本地服务器通过请求-响应方式的超文本传送。http是一种应用层协议，通过TCP（或TLS）进行发送，用户在本地客户端浏览器对特定域名进行访问或者是上传资源。服务器会通过http协议（请求头，请求体，响应头，响应体）进行传输文本。客户端浏览器可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Http协议">
+<meta property="og:url" content="https://moonriver05.github.io/2026/05/19/http%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="moon_nine&#39;s blog">
+<meta property="og:description" content="http协议 http简介 http是Hyper Text Transfer Protocol（超文本传输协议）的缩写。主要适用于从www服务器到本地服务器通过请求-响应方式的超文本传送。http是一种应用层协议，通过TCP（或TLS）进行发送，用户在本地客户端浏览器对特定域名进行访问或者是上传资源。服务器会通过http协议（请求头，请求体，响应头，响应体）进行传输文本。客户端浏览器可以">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://moonriver05.github.io/img/b47cba4c9cd1419787a7baef4e083546_1.jpg">
+<meta property="article:published_time" content="2026-05-19T01:12:48.000Z">
+<meta property="article:modified_time" content="2026-05-20T07:59:15.669Z">
+<meta property="article:author" content="moon_nine">
+<meta property="article:tag" content="http">
+<meta property="article:tag" content="计算机知识">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://moonriver05.github.io/img/b47cba4c9cd1419787a7baef4e083546_1.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Http协议",
+  "url": "https://moonriver05.github.io/2026/05/19/http%E5%8D%8F%E8%AE%AE/",
+  "image": "https://moonriver05.github.io/img/b47cba4c9cd1419787a7baef4e083546_1.jpg",
+  "datePublished": "2026-05-19T01:12:48.000Z",
+  "dateModified": "2026-05-20T07:59:15.669Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "moon_nine",
+      "url": "https://moonriver05.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://moonriver05.github.io/2026/05/19/http%E5%8D%8F%E8%AE%AE/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Http协议',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/f8cc40e0e71ac1f67dc466e7cbfa0e8c.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">moon_nine's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Http协议</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">Http协议</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-05-19T01:12:48.000Z" title="发表于 2026-05-19 09:12:48">2026-05-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-05-20T07:59:15.669Z" title="更新于 2026-05-20 15:59:15">2026-05-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><hr />
+<h1 id="http协议">http协议</h1>
+<h2 id="http简介">http简介</h2>
+<p>http是Hyper Text Transfer
+Protocol（超文本传输协议）的缩写。主要适用于从www服务器到本地服务器通过请求-响应方式的超文本传送。http是一种应用层协议，通过TCP（或TLS）进行发送，用户在本地客户端浏览器对特定域名进行访问或者是上传资源。服务器会通过http协议（请求头，请求体，响应头，响应体）进行传输文本。客户端浏览器可以解析html等其他文件，按照特定的格式展示给用户。</p>
+<h2 id="http基本原理">http基本原理</h2>
+<p>http协议规定了客户端和服务器之间的传输格式。采用请求和响应的方式，每个方式里面又分为头和体。响应里面的内容包括了，响应状态，响应内容，服务器信息等内容。</p>
+<p><strong><em>1.客户与服务器进行连接。</em></strong></p>
+<p>这个客户端的一般形式就是浏览器。它与服务器的http端口进行连接。</p>
+<p><strong><em>2.客户向服务器发送请求</em></strong></p>
+<p>通过tcp建立连接，客户端向服务器发送一个请求报文，一般格式就是</p>
+<p>(1).请求行（请求方法，请求URL，http版本）</p>
+<p>(2).请求头（host服务器域名端口，user-agent客户端类型，accept接受类型之类的）多个键值对</p>
+<p>(3).空行（)</p>
+<p>(4).请求体（一般只有post，put等需要提交数据的请求，携带客户端向服务器发布的数据）</p>
+<p><strong><em>3.服务器接受请求，并根据请求返回响应文件</em></strong></p>
+<p>服务器解析用户请求，同时申请资源，将资源副本写入tcp，交给客户端进行读取。</p>
+<p>以响应的格式返回，格式和请求体基本一致。</p>
+<p>(1).状态行 (请求是否成功，或者出了什么错误)</p>
+<p>(2).响应头（描述响应的数据，说明格式是什么，响应体长度，保存cookie，如何缓存）</p>
+<p>(3).空格 （)</p>
+<p>(4).响应体 （实际返回的业务数据）</p>
+<p><strong><em>4.客户与服务器关闭连接</em></strong></p>
+<p>如果客户主动关闭链接则connection为close，则响应后会主动断开tcp，如果服务器配置了keep-alive超时时间，或者最大请求数</p>
+<p>则在处理完最后一个是响应的时候，主动断开链接。或者是某一方的崩溃，通过tcp的检测对方无响应则关闭。</p>
+<p><strong><em>5.客户端解析返回的文件内容</em></strong></p>
+<p>客户端浏览器会解析状态行，判断是否成功，然后再解析每一个响应头，读取里面的响应体的内容再以特定的比方说html的格式</p>
+<p>进行内容展示。</p>
+<h2 id="http的状态码">http的状态码</h2>
+<p>状态码是显示请求响应状态的东西。下面将展示一些常用的http状态码</p>
+<p>1.成功类（2xx)——一切正常</p>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>含义</th>
+<th>典型场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>get请求成功返回数据，put更新成功</td>
+</tr>
+<tr>
+<td>201</td>
+<td>Created</td>
+<td>post创建新用户、新订单成功</td>
+</tr>
+<tr>
+<td>204</td>
+<td>No Content</td>
+<td>删除操作成功，保存设置成功</td>
+</tr>
+</tbody>
+</table>
+<p>2.重定向类(3xx)——需要额外操作</p>
+<table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 25%" />
+<col style="width: 65%" />
+</colgroup>
+<thead>
+<tr>
+<th>状态码</th>
+<th>含义</th>
+<th>典型场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>301</td>
+<td>Moved Permanently</td>
+<td>网站域名永久更换（http:// –&gt;https://)</td>
+</tr>
+<tr>
+<td>302</td>
+<td>Found</td>
+<td>临时跳转（未登录用户跳转到登录页）</td>
+</tr>
+<tr>
+<td>304</td>
+<td>Not Modified</td>
+<td>使用本地缓存（浏览器第二次请求同一张图片时）</td>
+</tr>
+</tbody>
+</table>
+<p>3.客户端错误类（4xx)——请求有问题</p>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 21%" />
+<col style="width: 71%" />
+</colgroup>
+<thead>
+<tr>
+<th>状态码</th>
+<th>含义</th>
+<th>典型场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>400</td>
+<td>Bad Request</td>
+<td>请求参数格式错误（比方说json语法错），缺少必要字段</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized</td>
+<td>未登录或者登陆过期</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden</td>
+<td>已经登陆但是权限不足</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found</td>
+<td>请求的URL不存在</td>
+</tr>
+<tr>
+<td>405</td>
+<td>Method Not Allowed</td>
+<td>对某些接口使用了错误的http方法，比方说只支持post但是你使用了get</td>
+</tr>
+<tr>
+<td>429</td>
+<td>Too Many Requests</td>
+<td>超出了API限流（一秒钟请求了太多次）</td>
+</tr>
+</tbody>
+</table>
+<p>4.服务器错误类（5xx）——服务器出问题</p>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 25%" />
+<col style="width: 66%" />
+</colgroup>
+<thead>
+<tr>
+<th>状态码</th>
+<th>含义</th>
+<th>典型场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>500</td>
+<td>Internal Server Error</td>
+<td>后端代码抛出异常 (空指针、数据库连接失败未处理)</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Bad Gateway</td>
+<td>网关/代理后方的服务挂了 (如 Nginx 后面的 PHP-FPM 崩溃)</td>
+</tr>
+<tr>
+<td>503</td>
+<td>Service Unavailable</td>
+<td>服务器过载、正在停机维护</td>
+</tr>
+<tr>
+<td>504</td>
+<td>Gateway Timeout</td>
+<td>网关等待上游服务响应超时 (如后端处理耗时超过 30 秒)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="http-cookie">http Cookie</h2>
+<h4 id="cookie的一般信息">cookie的一般信息。</h4>
+<p>1.存储信息，cookie一般会在浏览器里面保存一小段文本信息（不一定是账户密码，也可以是个性化推荐，深色模式或者跟踪分析之类的）。</p>
+<p>2.域名绑定：cookie会绑定到具体的域名，浏览器只会把cookie发给这个域名，不会发送给别的网站。</p>
+<p>3.自动放在header，每次请求改页面的时候，浏览器就会自动从硬盘里面读取对应的cookie，塞到http请求头的cookie字段里面这样就是记住登录，以后访问同一个域名的时候就不需要再次登陆了。</p>
+<p>但是cookie也有过期时间：一般会话cookie：不设置过期时间，浏览器一关就删掉（登陆状态通常用这种）</p>
+<p>​
+持久cookie：设置了expires或者max-age，会保存到硬盘上，关闭浏览器打开还在（比方说“记住我”）</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://moonriver05.github.io">moon_nine</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://moonriver05.github.io/2026/05/19/http%E5%8D%8F%E8%AE%AE/">https://moonriver05.github.io/2026/05/19/http%E5%8D%8F%E8%AE%AE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://moonriver05.github.io" target="_blank">moon_nine's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">计算机知识</a><a class="post-meta__tags" href="/tags/http/">http</a></div><div class="post-share"><div class="social-share" data-image="/img/b47cba4c9cd1419787a7baef4e083546_1.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/04/15/%E3%80%8A%E5%BC%82%E5%9B%BD%E6%97%A5%E8%AE%B0%E3%80%8B%E8%A7%82%E5%90%8E%E6%84%9F/" title="《异国日记》观后感"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">《异国日记》观后感</div></div><div class="info-2"><div class="info-item-1"> 《异国日记》观后感 1 满溢 7写下 2包裹 8彷徨 3舍弃 9交汇 4 畏缩 10束缚 5 选择 11解放 6 重叠 12寻得 ​ 13清晨到来 异国日记最初只是偶然刷到，看封面觉得画面很清爽就点进去了，看完第一集没什么特别的想法，只是觉得叙事风格和里面角色的相处方式很舒服，此后它便成为每周为数不多坚持在追的动画。跟着看也引发了自己的一些思考，最近又重新再看了一遍，于是将这些思考写一写。 故事最初发生在一个十五岁的高中生田汲朝身上，十五岁的朝的父母在车祸中双双丧生，葬礼上，亲戚对朝相互推诿，背地里议论这个突然变得孑然一生的小孩。此时坐在她对面的小姨高代槙生看不下去为了她挺身而出，将原本只是暂住的事务变成了养护她，给她一个家这样的责任揽了下来，她给予朝尊重的同时又明确了自己对于她母亲的厌恶，自己无法作为一个母亲去体贴、爱她，明确了边界。 .cvouweflfvhi{zoom:50%;}  故事第一集的采用两条时间线相互穿插的方式叙述，同时将孑然一生的状态用孤独站在沙漠的形式体现出来。这个沙漠无论是在op ed还是在后文都经常能够出现，是朝内心世界的写...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/b47cba4c9cd1419787a7baef4e083546_1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">moon_nine</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/moonriver05"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#http%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.</span> <span class="toc-text">http协议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#http%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">http简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#http%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-number">1.2.</span> <span class="toc-text">http基本原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#http%E7%9A%84%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-number">1.3.</span> <span class="toc-text">http的状态码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#http-cookie"><span class="toc-number">1.4.</span> <span class="toc-text">http Cookie</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#cookie%E7%9A%84%E4%B8%80%E8%88%AC%E4%BF%A1%E6%81%AF"><span class="toc-number">1.4.1.</span> <span class="toc-text">cookie的一般信息。</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/05/19/http%E5%8D%8F%E8%AE%AE/" title="Http协议">Http协议</a><time datetime="2026-05-19T01:12:48.000Z" title="发表于 2026-05-19 09:12:48">2026-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/15/%E3%80%8A%E5%BC%82%E5%9B%BD%E6%97%A5%E8%AE%B0%E3%80%8B%E8%A7%82%E5%90%8E%E6%84%9F/" title="《异国日记》观后感">《异国日记》观后感</a><time datetime="2026-04-15T06:53:00.000Z" title="发表于 2026-04-15 14:53:00">2026-04-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/23/2026-02-23-diary/" title="2026-02-23-Diary">2026-02-23-Diary</a><time datetime="2026-02-23T15:12:31.000Z" title="发表于 2026-02-23 23:12:31">2026-02-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/23/2026-02-24-diary/" title="2026-02-24-Diary">2026-02-24-Diary</a><time datetime="2026-02-23T15:12:31.000Z" title="发表于 2026-02-23 23:12:31">2026-02-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/23/%E5%AE%9E%E9%AA%8C%E5%AE%A4%E5%91%A8%E8%AE%B0%E6%9A%91%E5%81%87%E7%AC%AC%E4%BA%8C%E5%91%A8/" title="实验室周记 暑假第二周">实验室周记 暑假第二周</a><time datetime="2026-02-23T15:12:31.000Z" title="发表于 2026-02-23 23:12:31">2026-02-23</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By moon_nine</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
